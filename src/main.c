@@ -99,7 +99,7 @@ int main() {
 		return -1;
 	}
 
-	printf("%s, %d\n", "counter:", counter);
+	printf("%s%d\n", "counter = ", counter);
 
 	return 0;
 }

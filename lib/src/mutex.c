@@ -10,7 +10,13 @@ static int futex(int *uaddr, int futex_op, int val, const struct timespec *timeo
 }
 
 int mutex_init(mutex_t *mutex) {
+    if (!mutex) {
+        return -1;
+    }
+
     mutex->lock_flag = 0;
+    
+    return 0;
 }
 
 int mutex_lock(mutex_t *mutex) {
