@@ -1,7 +1,13 @@
 #include <spink_lock.h>
 
 int spin_lock_init(spin_lock_t *spin_lock) {
+    if (!spin_lock) {
+        return -1;
+    }
+
     spin_lock->lock_flag = 0;
+
+    return 0;
 }
 
 int spin_lock_lock(spin_lock_t *spin_lock) {
