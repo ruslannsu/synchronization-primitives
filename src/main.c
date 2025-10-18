@@ -8,20 +8,24 @@ int counter = 0;
 
 spin_lock_t spin;
 
+mutex_t mutex;
+
 void *thread_func(void *args) {
-	spin_lock_lock(&spin);
+	//spin_lock_lock(&spin);
+	mutex_lock(&mutex);
 	int i = 0;
 	while (i < 100000000) {
 		counter++;
 		i++;
 	}
-	spin_lock_unlock(&spin);
+	//spin_lock_unlock(&spin);
 }
 
 
 
 int main() {
 	spin_lock_init(&spin);
+	mutex_init(&mutex);
 
 	pthread_t tid1;
 	pthread_create(&tid1, NULL, thread_func, NULL);

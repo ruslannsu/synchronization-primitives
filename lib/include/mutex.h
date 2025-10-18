@@ -1,6 +1,8 @@
+#include <stdatomic.h>
+
 
 typedef struct mutex_t {
-    int lock_flag;
+    _Atomic lock_flag;
 }mutex_t;
 
 int mutex_init(mutex_t *mutex);
