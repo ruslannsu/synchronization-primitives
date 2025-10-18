@@ -1,5 +1,4 @@
 #include <spink_lock.h>
-#include <stdatomic.h>
 
 int spin_lock_init(spin_lock_t *spin_lock) {
     spin_lock->lock_flag = 0;
@@ -43,7 +42,5 @@ int spin_lock_unlock(spin_lock_t *spin_lock) {
     }
 
     return 0;
-
-    
 }
 

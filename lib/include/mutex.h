@@ -1,6 +1,5 @@
 #include <stdatomic.h>
 
-
 typedef struct mutex_t {
     _Atomic lock_flag;
 }mutex_t;

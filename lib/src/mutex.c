@@ -5,8 +5,6 @@
 #include <linux/futex.h>
 #include <errno.h>
 
-
-
 static int futex(int *uaddr, int futex_op, int val, const struct timespec *timeout) {
     return syscall(SYS_futex, uaddr, futex_op, val, timeout, NULL, 0);
 }
@@ -17,12 +15,12 @@ int mutex_init(mutex_t *mutex) {
 
 int mutex_lock(mutex_t *mutex) {
     if (!mutex) {
-        printf("%s\n", "invalid spin_lock_t");
+        printf("%s\n", "invalid mutex_lock_t");
         return -1;
     }
 
     if (!((mutex->lock_flag == 1) || (mutex->lock_flag == 0))) {
-        printf("%s\n", "spin_lock failed, bad lock_flag");
+        printf("%s\n", "mutex_lock failed, bad lock_flag");
         return -1;
     }
 
@@ -39,16 +37,18 @@ int mutex_lock(mutex_t *mutex) {
         }
 
     }
+
+    return 0;
 }
 
 int mutex_unlock(mutex_t *mutex) {
     if (!mutex) {
-        printf("%s\n", "invalid spin_lock_t");
+        printf("%s\n", "invalid mutex_lock_t");
         return -1;
     }
 
     if (!((mutex->lock_flag == 1) || (mutex->lock_flag == 0))) {
-        printf("%s\n", "spin_lock failed, bad lock_flag");
+        printf("%s\n", "mutex_unlock failed, bad lock_flag");
         return -1;
     }
 
@@ -65,4 +65,6 @@ int mutex_unlock(mutex_t *mutex) {
         printf("%s\n", strerror(errno));
         return -1;
     }    
+
+    return 0;
 }

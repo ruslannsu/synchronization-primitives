@@ -1,4 +1,3 @@
-
 #include <stdatomic.h>
 
 typedef struct spin_lock_t {
