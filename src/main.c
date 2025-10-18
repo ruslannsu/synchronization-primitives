@@ -56,7 +56,6 @@ void *thread_func_spin(void *args) {
 
 
 int main() {
-
 	int err;
 
 	err = spin_lock_init(&spin);
@@ -73,15 +72,32 @@ int main() {
 	}
 
 	pthread_t tid1;
-	pthread_create(&tid1, NULL, thread_func_mutex, NULL);
+
+	err = pthread_create(&tid1, NULL, thread_func_mutex, NULL);
+	if (err != 0) {
+		printf("%s\n", "pthread craete failed");
+		return -1;
+	}
 
 	pthread_t tid2;
-	pthread_create(&tid2, NULL, thread_func_mutex, NULL);
 
-	pthread_join(tid1, NULL);
+	err = pthread_create(&tid2, NULL, thread_func_mutex, NULL);
+	if (err != 0) {
+		printf("%s\n", "pthread craete failed");
+		return -1;
+	}
 
-	pthread_join(tid2, NULL);
+	err = pthread_join(tid1, NULL);
+	if (err != 0) {
+		printf("%s\n", "pthread join failed");
+		return -1;
+	}
 
+	err = pthread_join(tid2, NULL);
+	if (err != 0) {
+		printf("%s\n", "pthread join failed");
+		return -1;
+	}
 
 	printf("%s, %d\n", "counter:", counter);
 
