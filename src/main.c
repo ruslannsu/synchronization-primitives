@@ -10,15 +10,24 @@ spin_lock_t spin;
 
 mutex_t mutex;
 
-void *thread_func(void *args) {
-	//spin_lock_lock(&spin);
+void *thread_func_mutex(void *args) {
 	mutex_lock(&mutex);
 	int i = 0;
 	while (i < 100000000) {
 		counter++;
 		i++;
 	}
-	//spin_lock_unlock(&spin);
+	mutex_unlock(&mutex);
+}
+
+void *thread_func_spin(void *args) {
+	spin_lock_lock(&spin);
+	int i = 0;
+	while (i < 100000000) {
+		counter++;
+		i++;
+	}
+	spin_lock_unlock(&spin);
 }
 
 
@@ -28,10 +37,10 @@ int main() {
 	mutex_init(&mutex);
 
 	pthread_t tid1;
-	pthread_create(&tid1, NULL, thread_func, NULL);
+	pthread_create(&tid1, NULL, thread_func_mutex, NULL);
 
 	pthread_t tid2;
-	pthread_create(&tid2, NULL, thread_func, NULL);
+	pthread_create(&tid2, NULL, thread_func_spin, NULL);
 
 	pthread_join(tid1, NULL);
 
@@ -39,8 +48,6 @@ int main() {
 
 
 	printf("%s, %d\n", "counter:", counter);
-
-	sleep(10000);
 
 	return 0;
 }
