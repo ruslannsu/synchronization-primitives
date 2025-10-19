@@ -53,6 +53,16 @@ void *thread_func_spin(void *args) {
 	}
 }
 
+void *thread_func(void *args) {
+	int i = 0;
+	while (i < 100000000) {
+		++counter;
+		++i;
+	}
+
+	return NULL;
+}
+
 
 
 int main() {
@@ -73,17 +83,17 @@ int main() {
 
 	pthread_t tid1;
 
-	err = pthread_create(&tid1, NULL, thread_func_mutex, NULL);
+	err = pthread_create(&tid1, NULL, thread_func, NULL);
 	if (err != 0) {
-		printf("%s\n", "pthread craete failed");
+		printf("%s\n", "pthread create failed");
 		return -1;
 	}
 
 	pthread_t tid2;
 
-	err = pthread_create(&tid2, NULL, thread_func_mutex, NULL);
+	err = pthread_create(&tid2, NULL, thread_func, NULL);
 	if (err != 0) {
-		printf("%s\n", "pthread craete failed");
+		printf("%s\n", "pthread create failed");
 		return -1;
 	}
 
