@@ -25,10 +25,12 @@ int mutex_lock(mutex_t *mutex) {
         return -1;
     }
 
+    /*
     if (!((mutex->lock_flag == 1) || (mutex->lock_flag == 0))) {
         printf("%s\n", "mutex_lock failed, bad lock_flag");
         return -1;
     }
+    */
 
     int err;
 

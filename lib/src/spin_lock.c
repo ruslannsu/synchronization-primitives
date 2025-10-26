@@ -43,7 +43,7 @@ int spin_lock_unlock(spin_lock_t *spin_lock) {
 
     int expected_value = 1;
     if (!atomic_compare_exchange_strong(&spin_lock->lock_flag,  &expected_value, 0)) {
-        printf("%s\n", "already locked");
+        printf("%s\n", "already unlocked");
         return -1;
     }
 
